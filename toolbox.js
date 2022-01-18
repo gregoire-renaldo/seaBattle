@@ -1,5 +1,4 @@
 const readline = require("readline-sync");
-
 let toolbox = {
   saisieString: function (txt) {
     return readline.question(txt);
@@ -16,7 +15,7 @@ saisirEntier : function (txt) {
    * @param {*} car
    */
 
-  initialiserTableauVide: function (nbLigne, nbColonne, car = "") {
+  initialiserTableauVide: function (nbLigne, nbColonne, car = '') {
     let tab = [];
     for (let i = 0; i < nbLigne; i++) {
       let ligne = [];
@@ -26,7 +25,6 @@ saisirEntier : function (txt) {
       tab.push(ligne);
     }
     return tab;
-  },
-};
-
+  }
+}
 module.exports = toolbox;

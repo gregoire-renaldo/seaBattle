@@ -9,7 +9,6 @@ let nbBateau = 0;
 let pointJ1 = 0;
 let pointJ2 = 0;
 
-initialisationTableau();
 
 function jouer(ligne, colonne) {
   jouerCase(ligne, colonne);
@@ -33,7 +32,7 @@ function jouerCase(ligne, colonne) {
   }
 }
 
-function initialisationTableau() {
+function initialisationTableau(nbBateau) {
   jeu.nbCaseJ1 = 0;
   jeu.nbCaseJ2 = 0;
   finJeu = false;
@@ -48,7 +47,7 @@ function initialisationTableau() {
   contentJ2 += pointJ2;
   messageJ2.innerHTML = contentJ2;
 
-  jeu.initialisation();
+  jeu.initialisation(nbBateau);
   jeu.afficherGrille();
 }
 
@@ -81,7 +80,42 @@ function afficherAlert(txt, type) {
 
 function startGame() {
   nbBateauSaisie = parseInt(document.querySelector("#nbBateaux").value);
-  if (nbBateau < 2 ) {
-    afficherAlert("le nombre de bateaux doit être supérieur à 2",2)
-  }
+  if (nbBateauSaisie < 2) afficherAlert("le nombre de bateaux doit être supérieur à 2", 2)
+  if (nbBateauSaisie > 4) afficherAlert("le nombre de bateaux doit être inférieur à 5", 2)
+  if (nbBateauSaisie >= 2 && nbBateauSaisie <= 4) initialisationTableau(nbBateauSaisie);
+
 }
+
+addEventListener("click", function (event) {
+  let target = event.target
+  console.log(event)
+  // client X  client Y
+  if (target.id === "play") {
+    console.log("titr")
+    let image = " <img src='./images/explosion/explosion00.png' id='explo' style='width:100px; height:100px; position:absolute;top:"+(event.clientY-50)+"px;left:"+(event.clientX-50)+"px;'/>"
+    const body = document.querySelector("body");
+    let element = document.createElement("p");
+    element.innerHTML = image;
+    body.appendChild(element)
+
+    imageExplo(9);
+    function imageExplo(time) {
+      let explo = document.querySelector('#explo');
+      if(time>=1) {
+        if (time === 9) explo.setAttribute("src","./images/explosion/explosion01.png" )
+        if (time === 8) explo.setAttribute("src","./images/explosion/explosion02.png" )
+        if (time === 7) explo.setAttribute("src","./images/explosion/explosion03.png" )
+        if (time === 6) explo.setAttribute("src","./images/explosion/explosion04.png" )
+        if (time === 5) explo.setAttribute("src","./images/explosion/explosion05.png" )
+        if (time === 4) explo.setAttribute("src","./images/explosion/explosion06.png" )
+        if (time === 2) explo.setAttribute("src","./images/explosion/explosion07.png" )
+        if (time === 1) explo.remove(this)
+        
+        setTimeout(function() {
+
+          imageExplo(time-1)
+        }, 30);
+      }
+    }
+  }
+})

@@ -56,7 +56,7 @@ function gererFinJeu() {
   let contentAlert =
     "Partie terminée, le gagnant est : " + joueurEnCours + "<br />";
   contentAlert +=
-    '<button type="button" class="btn btn-secondary" onClick = initialisationTableau()>Recommencer</button>';
+    '<button type="button" class="btn btn-secondary" onClick = initialisationTableau('+nbBateauSaisie+')>Recommencer</button>';
   afficherAlert(contentAlert, 1)
   if (joueurEnCours === 1) {
     pointJ1++;

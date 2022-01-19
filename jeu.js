@@ -1,5 +1,3 @@
-const toolbox = require("./toolbox.js");
-
 const jeu = {
   nbColonne: 5,
   nbLigne: 5,
@@ -68,29 +66,69 @@ const jeu = {
   },
 
   afficherGrille: function () {
+    const jeu = document.querySelector("#jeu");
+    jeu.innerHTML = "";
+
+    let content = "<table>";
     for (let i = 0; i < this.nbLigne; i++) {
-      let txt = "";
+      content += "<tr>";
       for (let j = 0; j < this.nbColonne; j++) {
-        txt += "| ";
+        content +=
+          "<td class='border text-center' style='width:100px;height:100px'>";
         if (this.grille[i][j] === 0) {
-          txt += "_";
-        } else if (this.grille[i][j] === 1) {
-          txt += "x";
-        } else if (this.grille[i][j] === 2) {
-          txt += "o";
-        } else if (this.grille[i][j] === 3) {
-          txt += "d";
+          content +=
+            "<button class='btn btn-secondary' onClick='jouer(" +
+            i +
+            "," +
+            j +
+            ")'>Tirer</button>";
         }
-        txt += " |";
+
+        if (this.grille[i][j] === 1) {
+          content +=
+            "<img src='./images/J1.png' class='bg-danger rounded-circle' />";
+        }
+        if (this.grille[i][j] === 2) {
+          content +=
+            "<button class='btn btn-secondary' onClick='jouer(" +
+            i +
+            "," +
+            j +
+            ")'>Tirer</button>";
+        }
+        if (this.grille[i][j] === 3) {
+          content += "<img src='./images/croix.png'  />";
+        }
+        if (this.grille[i][j] === 4) {
+          content +=
+            "<img src='./images/croix.png' class='bg-danger rounded-circle' />";
+        }
+        if (this.grille[i][j] === 5) {
+          content +=
+            "<img src='./images/croix.png' class='bg-info rounded-circle' />";
+        }
+        content += "</td>";
       }
-      console.log(txt);
+      content += "</tr>";
     }
+    content += "</table>";
+    jeu.innerHTML = content;
   },
   jouerCase: function (ligne, colonne) {
-    if (this.grille[ligne][colonne] === 1) this.nbCaseJ1--;
-    if (this.grille[ligne][colonne] === 2) this.nbCaseJ2--;
-    this.grille[ligne][colonne] = 3;
+    if (this.grille[ligne][colonne] === 0) {
+      this.grille[ligne][colonne] = 3;
+    }
+    if (this.grille[ligne][colonne] === 1) {
+      this.nbCaseJ1--;
+      this.grille[ligne][colonne] = 4;
+    }
+    if (this.grille[ligne][colonne] === 2) {
+      this.nbCaseJ2--;
+      this.grille[ligne][colonne] = 5;
+    }
+  },
+  verificationFinduJeu: function () {
     if (this.nbCaseJ1 <= 0 || this.nbCaseJ2 <= 0) return true;
   },
 };
-module.exports = jeu;
+// module.exports = jeu;

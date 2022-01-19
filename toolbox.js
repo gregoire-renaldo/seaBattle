@@ -1,4 +1,4 @@
-const readline = require("readline-sync");
+// const readline = require("readline-sync");
 let toolbox = {
   saisieString: function (txt) {
     return readline.question(txt);
@@ -27,4 +27,4 @@ saisirEntier : function (txt) {
     return tab;
   }
 }
-module.exports = toolbox;
+// module.exports = toolbox;
